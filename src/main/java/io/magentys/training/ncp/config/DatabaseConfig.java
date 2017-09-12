@@ -1,7 +1,5 @@
 package io.magentys.training.ncp.config;
 
-import java.util.Date;
-
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;

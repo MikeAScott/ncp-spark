@@ -15,12 +15,14 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.eclipse.jetty.util.MultiMap;
 import org.eclipse.jetty.util.UrlEncoded;
 
+import io.magentys.training.ncp.controllers.PageController;
 import io.magentys.training.ncp.model.LoginResult;
 import io.magentys.training.ncp.model.Message;
 import io.magentys.training.ncp.model.User;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
 import spark.ModelAndView;
 import spark.Request;
+import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 import spark.utils.StringUtils;
 
@@ -28,11 +30,15 @@ public class WebConfig {
 	
 	private static final String USER_SESSION_ID = "user";
 	private MiniTwitService service;
-	 
+	
+	
+	private PageController pageController;
+	
 
 	public WebConfig(MiniTwitService service) {
 		this.service = service;
 		staticFileLocation("/public");
+		pageController = new PageController(service);
 		setupRoutes();
 	}
 	
@@ -43,71 +49,23 @@ public class WebConfig {
 		 *  This timeline shows the user's messages as well
 		 *  as all the messages of followed users.
 		 */
-		get("/", (req, res) -> {
-			User user = getAuthenticatedUser(req);
-			Map<String, Object> map = new HashMap<>();
-			map.put("pageTitle", "Timeline");
-			map.put("user", user);
-			List<Message> messages = service.getUserFullTimelineMessages(user);
-			map.put("messages", messages);
-			return new ModelAndView(map, "timeline.ftl");
-        }, new FreeMarkerEngine());
-		before("/", (req, res) -> {
-			User user = getAuthenticatedUser(req);
-			if(user == null) {
-				res.redirect("/public");
-				halt();
-			}
-		});
+		before("/", pageController::redirectGuestToPublic);
+		get("/", pageController::serveUserTimeline);
 
 		
 		/*
 		 * Displays the latest messages of all users.
 		 */
-		get("/public", (req, res) -> {
-			User user = getAuthenticatedUser(req);
-			Map<String, Object> map = new HashMap<>();
-			map.put("pageTitle", "Public Timeline");
-			map.put("user", user);
-			List<Message> messages = service.getPublicTimelineMessages();
-			map.put("messages", messages);
-			return new ModelAndView(map, "timeline.ftl");
-        }, new FreeMarkerEngine());
+		get("/public", pageController::servePublicTimeline);
 		
 		
 		/*
 		 * Displays a user's tweets.
 		 */
-		get("/t/:username", (req, res) -> {
-			String username = req.params(":username");
-			User profileUser = service.getUserbyUsername(username);
-			
-			User authUser = getAuthenticatedUser(req);
-			boolean followed = false;
-			if(authUser != null) {
-				followed = service.isUserFollower(authUser, profileUser);
-			}
-			List<Message> messages = service.getUserTimelineMessages(profileUser);
-			
-			Map<String, Object> map = new HashMap<>();
-			map.put("pageTitle", username + "'s Timeline");
-			map.put("user", authUser);
-			map.put("profileUser", profileUser);
-			map.put("followed", followed);
-			map.put("messages", messages);
-			return new ModelAndView(map, "timeline.ftl");
-        }, new FreeMarkerEngine());
-		/*
-		 * Checks if the user exists
-		 */
-		before("/t/:username", (req, res) -> {
-			String username = req.params(":username");
-			User profileUser = service.getUserbyUsername(username);
-			if(profileUser == null) {
-				halt(404, "User not Found");
-			}
-		});
-		
+		before("/t/:username", pageController::checkUserExists);
+		get("/t/:username", pageController::serveUserTweets);
+
+
 		
 		/*
 		 * Adds the current user as follower of the given user.
@@ -125,8 +83,8 @@ public class WebConfig {
 		 * Checks if the user is authenticated and the user to follow exists
 		 */
 		before("/t/:username/follow", (req, res) -> {
-			String username = req.params(":username");
 			User authUser = getAuthenticatedUser(req);
+			String username = req.params(":username");
 			User profileUser = service.getUserbyUsername(username);
 			if(authUser == null) {
 				res.redirect("/login");
@@ -299,6 +257,7 @@ public class WebConfig {
 			return null;
         });
 	}
+
 
 	private void addAuthenticatedUser(Request request, User u) {
 		request.session().attribute(USER_SESSION_ID, u);
