@@ -5,6 +5,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class GravatarUtil {
+	
+	public static final String GRAVATAR_DEFAULT_IMAGE_TYPE = "monsterid";
+	public static final int GRAVATAR_SIZE = 48;
+	
 	private static String hex(byte[] array) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < array.length; ++i) {

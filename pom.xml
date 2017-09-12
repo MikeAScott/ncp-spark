@@ -38,6 +38,13 @@
 	        <artifactId>freemarker</artifactId>
 	        <version>${freemarker.version}</version>
 	    </dependency>
+ 
+	     <!-- MongoDB -->
+	     <dependency>
+	        <groupId>org.mongodb.morphia</groupId>
+	        <artifactId>morphia</artifactId>
+	        <version>1.2.1</version>
+	    </dependency>
     
     	<!-- Spring Core -->
 	    <dependency>

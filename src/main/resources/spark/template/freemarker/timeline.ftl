@@ -45,13 +45,13 @@
                     <hr/>
 
                     <div class="media">
-                        <a class="pull-left" href="/t/${message.username}">
-                            <img class="media-object" src="${message.gravatar}"/>
+                        <a class="pull-left" href="/t/${message.user.username}">
+                            <img class="media-object" src="${message.user.gravatar}"/>
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading">
-                                <a href="/t/${message.username}">
-                                ${message.username}
+                                <a href="/t/${message.user.username}">
+                                ${message.user.username}
                                 </a>
                             </h4>
 

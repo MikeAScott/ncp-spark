@@ -6,6 +6,10 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.mapping.Mapper;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,93 +17,72 @@ import org.springframework.stereotype.Repository;
 
 import io.magentys.training.ncp.dao.UserDao;
 import io.magentys.training.ncp.model.User;
+import io.magentys.training.ncp.util.GravatarUtil;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 	
-	private NamedParameterJdbcTemplate template;
-
+	private Datastore datastore;
 	@Autowired
-	public UserDaoImpl(DataSource ds) {
-		template = new NamedParameterJdbcTemplate(ds);
+	public UserDaoImpl(Datastore datastore) {
+		this.datastore = datastore;
 	}
 
 	@Override
 	public User getUserbyUsername(String username) {
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("name", username);
-        
-		String sql = "SELECT * FROM user WHERE username=:name";
-		
-        List<User> list = template.query(
-                    sql,
-                    params,
-                    userMapper);
-        
-        User result = null;
-        if(list != null && !list.isEmpty()) {
-        	result = list.get(0);
-        }
-        
-		return result;
+		Query<User> query = datastore.createQuery(User.class)
+				.filter("username =", username);
+		return query.get();
 	}
 
 	@Override
 	public void insertFollower(User follower, User followee) {
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("follower", follower.getId());
-        params.put("followee", followee.getId());
-        
-		String sql = "insert into follower (follower_id, followee_id) values (:follower, :followee)";
-		
-        template.update(sql,  params);
+		Query<User> query = datastore.createQuery(User.class)
+			.field(Mapper.ID_KEY).equal(follower.getId());
+		UpdateOperations<User> ops = datastore.createUpdateOperations(User.class)
+			.add("follows", followee.getUsername());
+		datastore.update(query, ops);
+//		Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("follower", follower.getId());
+//        params.put("followee", followee.getId());
+//        
+//		String sql = "insert into follower (follower_id, followee_id) values (:follower, :followee)";
+//		
+//        template.update(sql,  params);
 	}
 
 	@Override
 	public void deleteFollower(User follower, User followee) {
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("follower", follower.getId());
-        params.put("followee", followee.getId());
-        
-		String sql = "delete from follower where follower_id = :follower and followee_id = :followee";
-		
-        template.update(sql,  params);
+//		Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("follower", follower.getId());
+//        params.put("followee", followee.getId());
+//        
+//		String sql = "delete from follower where follower_id = :follower and followee_id = :followee";
+//		
+//        template.update(sql,  params);
 	}
 	
 	@Override
 	public boolean isUserFollower(User follower, User followee) {
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("follower", follower.getId());
-        params.put("followee", followee.getId());
-        
-		String sql = "select count(1) from follower where " +
-            "follower.follower_id = :follower and follower.followee_id = :followee";
-		
-		Long l = template.queryForObject(sql, params, Long.class);
-		
-		return l > 0;
+		return false;
+//		Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("follower", follower.getId());
+//        params.put("followee", followee.getId());
+//        
+//		String sql = "select count(1) from follower where " +
+//            "follower.follower_id = :follower and follower.followee_id = :followee";
+//		
+//		Long l = template.queryForObject(sql, params, Long.class);
+//		
+//		return l > 0;
 	}
 
 	@Override
 	public void registerUser(User user) {
-		Map<String, Object> params = new HashMap<String, Object>();
-        params.put("username", user.getUsername());
-        params.put("email", user.getEmail());
-        params.put("pw", user.getPassword());
-        
-		String sql = "insert into user (username, email, pw) values (:username, :email, :pw)";
-		
-        template.update(sql,  params);
+		user.setGravatar(GravatarUtil.gravatarURL(user.getEmail(),
+				GravatarUtil.GRAVATAR_DEFAULT_IMAGE_TYPE,
+				GravatarUtil.GRAVATAR_SIZE));		
+		datastore.save(user);
 	}
 
-	private RowMapper<User> userMapper = (rs, rowNum) -> {
-		User u = new User();
-		
-		u.setId(rs.getInt("user_id"));
-		u.setEmail(rs.getString("email"));
-		u.setUsername(rs.getString("username"));
-		u.setPassword(rs.getString("pw"));
-		
-		return u;
-	};
 }

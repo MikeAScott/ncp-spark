@@ -3,43 +3,51 @@ package io.magentys.training.ncp.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.utils.IndexType;
+
+@Entity("messages")
+@Indexes({
+	@Index(fields = @Field(value = "pubDate", type = IndexType.DESC)),
+	@Index(fields = @Field(value = "username"))
+	})
 public class Message {
-	private int id;
+	@Id
+	private ObjectId id;
 	
-	private int userId;
+	@Reference
+	private User user;
 	
 	private String username;
 	
 	private String text;
 	
 	private Date pubDate;
-	
+
+	@NotSaved
 	private String pubDateStr;
 	
-	private String gravatar;
 
-	public int getId() {
+	public ObjectId getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void ObjectId(ObjectId id) {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
+		this.username = user.getUsername();
 	}
 
 	public String getText() {
@@ -56,20 +64,13 @@ public class Message {
 
 	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
-		if(pubDate != null) {
-			pubDateStr = new SimpleDateFormat("yyyy-MM-dd @ HH:mm").format(pubDate);
-		}
 	}
 
 	public String getPubDateStr() {
+		if(pubDate != null) {
+			pubDateStr = new SimpleDateFormat("yyyy-MM-dd @ HH:mm").format(pubDate);
+		}
 		return pubDateStr;
 	}
 
-	public String getGravatar() {
-		return gravatar;
-	}
-
-	public void setGravatar(String gravatar) {
-		this.gravatar = gravatar;
-	}
 }

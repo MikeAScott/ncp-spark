@@ -271,7 +271,7 @@ public class WebConfig {
 			MultiMap<String> params = new MultiMap<String>();
 			UrlEncoded.decodeTo(req.body(), params, "UTF-8");
 			Message m = new Message();
-			m.setUserId(user.getId());
+			m.setUser(user);
 			m.setPubDate(new Date());
 			BeanUtils.populate(m, params);
 			service.addMessage(m);
