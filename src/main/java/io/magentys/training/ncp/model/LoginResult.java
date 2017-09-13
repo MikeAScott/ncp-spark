@@ -1,5 +1,7 @@
 package io.magentys.training.ncp.model;
 
+import io.magentys.mvc.authentication.User;
+
 public class LoginResult {
 	
 	private String error;

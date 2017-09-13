@@ -1,21 +1,27 @@
 package io.magentys.training.ncp.controllers;
 
+import static io.magentys.mvc.authentication.SessionUtils.*;
 import static spark.Spark.halt;
 
-import io.magentys.training.ncp.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import io.magentys.mvc.authentication.AuthenticationService;
+import io.magentys.mvc.authentication.User;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
-
-import static io.magentys.training.ncp.controllers.SessionUtils.*;
-
 import spark.Request;
 import spark.Response;
 
-public class UserController {
+@Component
+public class FollowUserController {
 
 	private MiniTwitService service;
+	private AuthenticationService authService;
 
-	public UserController(MiniTwitService service) {
+	@Autowired
+	public FollowUserController(MiniTwitService service, AuthenticationService authService) {
 		this.service = service;
+		this.authService = authService;
 	}
 	
 	public boolean checkUserExists(Request request, Response response) {
@@ -44,7 +50,7 @@ public class UserController {
 	}
 
 	private User getUserOrHaltIfNotFound(String username) {
-		User profileUser = service.getUserbyUsername(username);
+		User profileUser = authService.getUserbyUsername(username);
 		if(profileUser == null) {
 			halt(404, "User not Found");
 		}

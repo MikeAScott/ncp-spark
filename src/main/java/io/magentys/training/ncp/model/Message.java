@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
 
+import io.magentys.mvc.authentication.User;
+
 @Entity("messages")
 @Indexes({
 	@Index(fields = @Field(value = "pubDate", type = IndexType.DESC)),

@@ -1,25 +1,25 @@
-package io.magentys.training.ncp.controllers;
+package io.magentys.mvc.authentication;
 
 import io.magentys.training.ncp.model.LoginResult;
-import io.magentys.training.ncp.model.User;
-import io.magentys.training.ncp.service.impl.MiniTwitService;
-import io.magentys.training.ncp.view.LoginView;
-import io.magentys.training.ncp.view.RegisterView;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
 import spark.utils.StringUtils;
 
+import static io.magentys.mvc.ViewUtils.*;
+import static io.magentys.mvc.authentication.SessionUtils.*;
 import static spark.Spark.halt;
-import static io.magentys.training.ncp.controllers.SessionUtils.*;
-import static io.magentys.training.ncp.view.ViewUtils.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthenticationController {
 	
-	private MiniTwitService service;
+	private AuthenticationService service;
 	
-	public AuthenticationController(MiniTwitService service) {
+	@Autowired
+	public AuthenticationController(AuthenticationService service) {
 		this.service = service;
 	}
 

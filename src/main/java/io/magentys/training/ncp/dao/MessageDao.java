@@ -2,8 +2,8 @@ package io.magentys.training.ncp.dao;
 
 import java.util.List;
 
+import io.magentys.mvc.authentication.User;
 import io.magentys.training.ncp.model.Message;
-import io.magentys.training.ncp.model.User;
 
 public interface MessageDao {
 	List<Message> getUserTimelineMessages(User user);

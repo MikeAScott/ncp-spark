@@ -1,6 +1,5 @@
-package io.magentys.training.ncp.controllers;
+package io.magentys.mvc.authentication;
 
-import io.magentys.training.ncp.model.User;
 import spark.Request;
 
 public class SessionUtils {

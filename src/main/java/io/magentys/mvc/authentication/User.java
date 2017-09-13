@@ -1,7 +1,5 @@
-package io.magentys.training.ncp.model;
+package io.magentys.mvc.authentication;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
@@ -30,8 +28,6 @@ public class User {
 	private String password2;
 
 	private String gravatar;
-	
-	private List<String> follows = new ArrayList<String>(); 
 
 	public ObjectId getId() {
 		return id;
@@ -79,10 +75,6 @@ public class User {
 
 	public void setGravatar(String gravatar) {
 		this.gravatar = gravatar;
-	}
-	
-	public List<String> getFollows() {
-		return follows;
 	}
 	
 	public String validate() {

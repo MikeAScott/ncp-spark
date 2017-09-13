@@ -1,7 +1,10 @@
-package io.magentys.training.ncp.view;
+package io.magentys.mvc.authentication;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import io.magentys.mvc.View;
+import io.magentys.mvc.ViewUtils;
 
 
 public class LoginView implements View {

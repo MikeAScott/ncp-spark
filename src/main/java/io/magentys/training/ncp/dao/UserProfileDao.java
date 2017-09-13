@@ -1,10 +1,11 @@
 package io.magentys.training.ncp.dao;
 
-import io.magentys.training.ncp.model.User;
+import io.magentys.mvc.authentication.User;
+import io.magentys.training.ncp.model.UserProfile;
 
-public interface UserDao {
+public interface UserProfileDao {
 
-	User getUserbyUsername(String username);
+	UserProfile getProfile(User user);
 	
 	void insertFollower(User follower, User followee);
 	
@@ -12,5 +13,4 @@ public interface UserDao {
 	
 	boolean isUserFollower(User follower, User followee);
 	
-	void registerUser(User user);
 }

@@ -1,4 +1,4 @@
-package io.magentys.training.ncp.view;
+package io.magentys.mvc;
 
 import static spark.Spark.halt;
 

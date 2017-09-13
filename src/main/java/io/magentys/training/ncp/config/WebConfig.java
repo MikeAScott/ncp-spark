@@ -5,30 +5,43 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
-import io.magentys.training.ncp.controllers.AuthenticationController;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import io.magentys.mvc.authentication.AuthenticationController;
+import io.magentys.mvc.authentication.AuthenticationService;
+import io.magentys.training.ncp.controllers.FollowUserController;
 import io.magentys.training.ncp.controllers.MessageController;
 import io.magentys.training.ncp.controllers.TimelineController;
-import io.magentys.training.ncp.controllers.UserController;
-
 import io.magentys.training.ncp.service.impl.MiniTwitService;
 
 public class WebConfig {
 	
 	private TimelineController timelineController;
-	private UserController userController;
+	private FollowUserController userController;
 	private AuthenticationController authenticationController;
 	private MessageController messageController;
 	
-
-	public WebConfig(MiniTwitService service) {
+	@Autowired
+	public WebConfig(TimelineController timelineController, FollowUserController userController,
+			AuthenticationController authenticationController, MessageController messageController) {
 		staticFileLocation("/public");
-		timelineController = new TimelineController(service);
-		userController = new UserController(service);
-		authenticationController = new AuthenticationController(service);
-		messageController = new MessageController(service);
+		this.timelineController = timelineController;
+		this.userController = userController;
+		this.authenticationController = authenticationController;
+		this.messageController = messageController;
 		setupRoutes();
 	}
-	
+
+//	public WebConfig(MiniTwitService service, AuthenticationService authService) {
+//		staticFileLocation("/public");
+//		timelineController = new TimelineController(service, authService);
+//		userController = new FollowUserController(service, authService);
+//		authenticationController = new AuthenticationController(authService);
+//		messageController = new MessageController(service);
+//		setupRoutes();
+//	}
+
+
 	private void setupRoutes() {
 		/*
 		 * Shows a users timeline or if no user is logged in,

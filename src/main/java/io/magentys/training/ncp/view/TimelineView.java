@@ -1,7 +1,9 @@
 package io.magentys.training.ncp.view;
 
+import io.magentys.mvc.View;
+import io.magentys.mvc.ViewUtils;
+import io.magentys.mvc.authentication.User;
 import io.magentys.training.ncp.model.Message;
-import io.magentys.training.ncp.model.User;
 
 import java.util.HashMap;
 import java.util.List;

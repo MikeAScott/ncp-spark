@@ -1,26 +1,32 @@
 package io.magentys.training.ncp.controllers;
 
+import static io.magentys.mvc.authentication.SessionUtils.*;
 import static spark.Spark.halt;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import io.magentys.mvc.View;
+import io.magentys.mvc.authentication.AuthenticationService;
+import io.magentys.mvc.authentication.User;
 import io.magentys.training.ncp.model.Message;
-import io.magentys.training.ncp.model.User;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
 import io.magentys.training.ncp.view.TimelineView;
-import io.magentys.training.ncp.view.View;
-
-import static io.magentys.training.ncp.controllers.SessionUtils.*;
 import spark.Request;
 import spark.Response;
 
+@Component
 public class TimelineController {
 	
-
 	private MiniTwitService service;
+	private AuthenticationService authService;
 
-	public TimelineController(MiniTwitService service) {
+	@Autowired
+	public TimelineController(MiniTwitService service, AuthenticationService authService) {
 		this.service = service;
+		this.authService = authService;
 	}
 
 	public String serveUserTimeline(Request request, Response response) {
@@ -47,7 +53,7 @@ public class TimelineController {
 
 	public String serveUserTweets(Request request, Response response) {
 		String username = request.params(":username");
-		User profileUser = service.getUserbyUsername(username);
+		User profileUser = authService.getUserbyUsername(username);
 		
 		User authUser = getAuthenticatedUser(request);
 		boolean followed = false;

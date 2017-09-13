@@ -4,8 +4,9 @@ import java.util.Date;
 
 import org.mongodb.morphia.Datastore;
 
+import io.magentys.mvc.authentication.User;
 import io.magentys.training.ncp.model.Message;
-import io.magentys.training.ncp.model.User;
+import io.magentys.training.ncp.model.UserProfile;
 import io.magentys.training.ncp.util.GravatarUtil;
 import io.magentys.training.ncp.util.PasswordUtil;
 
@@ -24,11 +25,17 @@ public class DataCreator {
         for (int i = 1; i <= 10; i++) {
             User user = createUser(datastore, "User" + i);	
             if (i == 4 || i == 5) {
-            	user.getFollows().add("User" + (i + 2));
-            	datastore.save(user);
+            	addFollows(user,"User" + (i + 2));
             }
     		createMessages(datastore, user, totalUsers + 1 - i);			
 		}
+	}
+	
+	private void addFollows(User user, String followee){
+		UserProfile profile = new UserProfile();
+		profile.setUser(user);
+		profile.getFollows().add(followee);
+		datastore.save(profile);
 	}
 
 	private void createMessages(Datastore datastore, User user, int count) {
