@@ -18,7 +18,6 @@ public class App {
 	
 	public static void main(String[] args) {
     	AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(App.class);
-    	//new WebConfig(ctx.getBean(MiniTwitService.class), ctx.getBean(AuthenticationService.class));
     	new WebConfig(
     			ctx.getBean(TimelineController.class),
     			ctx.getBean(FollowUserController.class),

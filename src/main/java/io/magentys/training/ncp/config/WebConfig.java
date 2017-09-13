@@ -8,11 +8,9 @@ import static spark.Spark.staticFileLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.magentys.mvc.authentication.AuthenticationController;
-import io.magentys.mvc.authentication.AuthenticationService;
 import io.magentys.training.ncp.controllers.FollowUserController;
 import io.magentys.training.ncp.controllers.MessageController;
 import io.magentys.training.ncp.controllers.TimelineController;
-import io.magentys.training.ncp.service.impl.MiniTwitService;
 
 public class WebConfig {
 	
@@ -31,16 +29,6 @@ public class WebConfig {
 		this.messageController = messageController;
 		setupRoutes();
 	}
-
-//	public WebConfig(MiniTwitService service, AuthenticationService authService) {
-//		staticFileLocation("/public");
-//		timelineController = new TimelineController(service, authService);
-//		userController = new FollowUserController(service, authService);
-//		authenticationController = new AuthenticationController(authService);
-//		messageController = new MessageController(service);
-//		setupRoutes();
-//	}
-
 
 	private void setupRoutes() {
 		/*
