@@ -1,25 +1,18 @@
 package io.magentys.training.ncp.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.eclipse.jetty.util.MultiMap;
-import org.eclipse.jetty.util.UrlEncoded;
-
 import io.magentys.training.ncp.model.LoginResult;
 import io.magentys.training.ncp.model.User;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
+import io.magentys.training.ncp.view.LoginView;
+import io.magentys.training.ncp.view.RegisterView;
 import spark.Filter;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.utils.StringUtils;
 
 import static spark.Spark.halt;
-
-import static io.magentys.training.ncp.controllers.ViewUtils.*;
 import static io.magentys.training.ncp.controllers.SessionUtils.*;
+import static io.magentys.training.ncp.view.ViewUtils.*;
 
 
 public class AuthenticationController {
@@ -39,34 +32,27 @@ public class AuthenticationController {
 	}
 	
 	public String serveLoginPage(Request request, Response response) {
-		Map<String, Object> map = new HashMap<>();
+		LoginView view = new LoginView();
 		if(request.queryParams("r") != null) {
-			map.put("message", "You were successfully registered and can login now");
+			view.setMessage("You were successfully registered and can login now");
 		}
-		return render(map, "login.ftl");
+		return view.render("Sign In");
 	}
 
 	public String loginUser(Request request, Response response) {
-		Map<String, Object> map = new HashMap<>();
+		LoginView view = new LoginView();
 		User user = new User();
-		try {
-			MultiMap<String> params = new MultiMap<String>();
-			UrlEncoded.decodeTo(request.body(), params, "UTF-8");
-			BeanUtils.populate(user, params);
-		} catch (Exception e) {
-			halt(501);
-			return null;
-		}
+		populateFromParams(request, user);		
 		LoginResult result = service.checkUser(user);
 		if(result.getUser() != null) {
 			addAuthenticatedUser(request, result.getUser());
 			response.redirect("/");
 			halt();
 		} else {
-			map.put("error", result.getError());
+			view.setError(result.getError());
 		}
-		map.put("username", user.getUsername());
-		return render(map, "login.ftl");
+		view.setUsername(user.getUsername());
+		return view.render("Sign in");
 	}
 
 	public void redirectIfLoggedIn(Request request, Response response) {
@@ -77,17 +63,10 @@ public class AuthenticationController {
 		}
 	}
 	
-	public ModelAndView registerUser(Request request, Response response) {
-		Map<String, Object> map = new HashMap<>();
+	public String registerUser(Request request, Response response) {
+		RegisterView view = new RegisterView();
 		User user = new User();
-		try {
-			MultiMap<String> params = new MultiMap<String>();
-			UrlEncoded.decodeTo(request.body(), params, "UTF-8");
-			BeanUtils.populate(user, params);
-		} catch (Exception e) {
-			halt(501);
-			return null;
-		}
+		populateFromParams(request, user);
 		String error = user.validate();
 		if(StringUtils.isEmpty(error)) {
 			User existingUser = service.getUserbyUsername(user.getUsername());
@@ -99,10 +78,10 @@ public class AuthenticationController {
 				error = "The username is already taken";
 			}
 		}
-		map.put("error", error);
-		map.put("username", user.getUsername());
-		map.put("email", user.getEmail());
-		return new ModelAndView(map, "register.ftl");
+		view.setError(error);
+		view.setUsername(user.getUsername());
+		view.setEmail(user.getEmail());
+		return view.render("Sign Up");
 	}
 
 	/**
@@ -112,8 +91,8 @@ public class AuthenticationController {
 	 * @return A string containing the register page
 	 */
 	public String serveRegisterPage(Request request, Response response) {
-		Map<String, Object> map = new HashMap<>();
-		return render(map, "register.ftl");
+		RegisterView view = new RegisterView();
+		return view.render("Sign Up");
 	}
 
 	public Filter logoutUser(Request request, Response response) {
@@ -121,6 +100,7 @@ public class AuthenticationController {
 		response.redirect("/public");
 		return null;
 	}
+
 
 
 
