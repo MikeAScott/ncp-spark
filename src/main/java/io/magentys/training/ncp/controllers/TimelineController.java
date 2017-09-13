@@ -9,17 +9,17 @@ import java.util.Map;
 import io.magentys.training.ncp.model.Message;
 import io.magentys.training.ncp.model.User;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
-import spark.ModelAndView;
+import static io.magentys.training.ncp.controllers.ViewUtils.*;
+import static io.magentys.training.ncp.controllers.SessionUtils.*;
 import spark.Request;
 import spark.Response;
-import spark.template.freemarker.FreeMarkerEngine;
 
-public class PageController {
+public class TimelineController {
 	
-	private static final String USER_SESSION_ID = "user";	
+
 	private MiniTwitService service;
 
-	public PageController(MiniTwitService service) {
+	public TimelineController(MiniTwitService service) {
 		this.service = service;
 	}
 
@@ -71,32 +71,7 @@ public class PageController {
 		return render(map, "timeline.ftl");
 	}
 
-	public void checkUserExists(Request request, Response response) {
-		String username = request.params(":username");
-		User profileUser = service.getUserbyUsername(username);
-		if(profileUser == null) {
-			halt(404, "User not Found");
-		}
-	}
 
-	
-    public static String render(Map<String, Object> model,String templatePath) {
-        return new FreeMarkerEngine().render(new ModelAndView(model, templatePath));
-    }
-    
-	private void addAuthenticatedUser(Request request, User u) {
-		request.session().attribute(USER_SESSION_ID, u);
-		
-	}
-
-	private void removeAuthenticatedUser(Request request) {
-		request.session().removeAttribute(USER_SESSION_ID);
-		
-	}
-
-	private User getAuthenticatedUser(Request request) {
-		return request.session().attribute(USER_SESSION_ID);
-	}
 
 
 }

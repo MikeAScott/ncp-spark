@@ -1,10 +1,9 @@
 package io.magentys.training.ncp.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,10 +33,13 @@ public class MessageDaoImpl implements MessageDao {
 
 	@Override
 	public List<Message> getUserFullTimelineMessages(User user) {
+		Query<User> userQuery = datastore.createQuery(User.class)
+				.field(Mapper.ID_KEY).equal(user.getId());
+		User dbUser = userQuery.get();
 		Query<Message> query = datastore.createQuery(Message.class);
 		query.or(
 			 query.criteria("username").equal(user.getUsername())
-		    ,query.criteria("username").in(user.getFollows())
+		    ,query.criteria("username").in(dbUser.getFollows())
 		);
 		query.order("-pubDate");
 		List<Message> result = query.asList();
