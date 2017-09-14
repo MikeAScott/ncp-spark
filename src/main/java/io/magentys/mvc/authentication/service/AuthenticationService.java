@@ -1,8 +1,10 @@
-package io.magentys.mvc.authentication;
+package io.magentys.mvc.authentication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.magentys.mvc.authentication.dao.UserDao;
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.model.LoginResult;
 import io.magentys.training.ncp.util.PasswordUtil;
 
@@ -15,6 +17,10 @@ public class AuthenticationService {
 	public AuthenticationService(UserDao userDao) {
 		super();
 		this.userDao = userDao;
+	}
+	
+	public boolean usernameIsRegistered(String username){
+		return getUserbyUsername(username) != null;
 	}
 	
 	public User getUserbyUsername(String username) {

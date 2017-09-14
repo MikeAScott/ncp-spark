@@ -6,7 +6,7 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.dao.UserProfileDao;
 import io.magentys.training.ncp.model.UserProfile;
 

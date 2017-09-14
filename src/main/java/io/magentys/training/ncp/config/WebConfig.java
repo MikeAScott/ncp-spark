@@ -7,7 +7,7 @@ import static spark.Spark.staticFileLocation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.magentys.mvc.authentication.AuthenticationController;
+import io.magentys.mvc.authentication.controllers.AuthenticationController;
 import io.magentys.training.ncp.controllers.FollowUserController;
 import io.magentys.training.ncp.controllers.MessageController;
 import io.magentys.training.ncp.controllers.TimelineController;

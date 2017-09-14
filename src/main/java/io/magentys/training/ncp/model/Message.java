@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.utils.IndexType;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 
 @Entity("messages")
 @Indexes({

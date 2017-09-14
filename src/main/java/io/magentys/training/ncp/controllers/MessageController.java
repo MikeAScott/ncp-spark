@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.controllers;
 
-import static io.magentys.mvc.authentication.SessionUtils.*;
+import static io.magentys.mvc.authentication.controllers.SessionUtils.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.eclipse.jetty.util.UrlEncoded;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.model.Message;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
 import spark.Request;

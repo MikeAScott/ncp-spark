@@ -1,4 +1,4 @@
-package io.magentys.mvc.authentication;
+package io.magentys.mvc.authentication.dao;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
@@ -6,6 +6,7 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.util.GravatarUtil;
 
 @Repository

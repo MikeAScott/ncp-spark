@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.controllers;
 
-import static io.magentys.mvc.authentication.SessionUtils.*;
+import static io.magentys.mvc.authentication.controllers.SessionUtils.*;
 import static spark.Spark.halt;
 
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.magentys.mvc.View;
-import io.magentys.mvc.authentication.AuthenticationService;
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
+import io.magentys.mvc.authentication.service.AuthenticationService;
 import io.magentys.training.ncp.model.Message;
 import io.magentys.training.ncp.service.impl.MiniTwitService;
 import io.magentys.training.ncp.view.TimelineView;

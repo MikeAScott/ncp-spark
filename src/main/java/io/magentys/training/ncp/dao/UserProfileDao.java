@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.dao;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.model.UserProfile;
 
 public interface UserProfileDao {

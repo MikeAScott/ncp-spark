@@ -4,8 +4,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import io.magentys.mvc.authentication.AuthenticationController;
-import io.magentys.mvc.authentication.AuthenticationService;
+import io.magentys.mvc.authentication.controllers.AuthenticationController;
+import io.magentys.mvc.authentication.service.AuthenticationService;
 import io.magentys.training.ncp.config.WebConfig;
 import io.magentys.training.ncp.controllers.FollowUserController;
 import io.magentys.training.ncp.controllers.MessageController;

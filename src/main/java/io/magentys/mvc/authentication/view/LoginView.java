@@ -1,28 +1,28 @@
-package io.magentys.mvc.authentication;
+package io.magentys.mvc.authentication.view;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import io.magentys.mvc.View;
 import io.magentys.mvc.ViewUtils;
+import io.magentys.mvc.authentication.model.User;
 
+public class LoginView implements View {
 
-public class RegisterView implements View {
-
-	private static final String TEMPLATE_NAME = "register.ftl";
+	private static final String TEMPLATE_NAME = "login.ftl";
 	Map<String, Object> map = new HashMap<>();
 
-	public RegisterView(){
+	public LoginView(){
 	}	
 	
+	public LoginView(User user) {
+		setUsername(user.getUsername());
+	}
+
 	public void setUsername(String username){
 		map.put("username", username);
 	}
 	
-	public void setEmail(String email) {
-		map.put("email", email);
-	}
-
 	public void setError(String error){
 		map.put("error", error);
 	}
@@ -36,6 +36,5 @@ public class RegisterView implements View {
 		map.put("pageTitle", title);
 		return ViewUtils.render(map, TEMPLATE_NAME);
 	}
-
 
 }

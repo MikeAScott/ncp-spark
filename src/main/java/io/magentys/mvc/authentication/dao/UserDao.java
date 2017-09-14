@@ -1,4 +1,6 @@
-package io.magentys.mvc.authentication;
+package io.magentys.mvc.authentication.dao;
+
+import io.magentys.mvc.authentication.model.User;
 
 public interface UserDao {
 

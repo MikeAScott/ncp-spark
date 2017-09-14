@@ -1,4 +1,4 @@
-package io.magentys.mvc.authentication;
+package io.magentys.mvc.authentication.model;
 
 import java.util.regex.Pattern;
 

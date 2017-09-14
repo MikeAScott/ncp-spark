@@ -8,7 +8,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 
 @Entity("user_profiles")
 public class UserProfile {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.dao.MessageDao;
 import io.magentys.training.ncp.dao.UserProfileDao;
 import io.magentys.training.ncp.model.Message;

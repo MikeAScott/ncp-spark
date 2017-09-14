@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.model;
 
-import io.magentys.mvc.authentication.User;
+import io.magentys.mvc.authentication.model.User;
 
 public class LoginResult {
 	
