@@ -1,4 +1,4 @@
-package io.magentys.training.ncp.util;
+package io.magentys.mvc.authentication.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

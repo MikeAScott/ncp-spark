@@ -96,7 +96,7 @@ public class AuthenticationController {
 
 	public Filter logoutUser(Request request, Response response) {
 		removeAuthenticatedUser(request);
-		response.redirect("/public");
+		response.redirect("/");
 		return null;
 	}
 

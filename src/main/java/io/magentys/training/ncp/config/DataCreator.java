@@ -4,11 +4,11 @@ import java.util.Date;
 
 import org.mongodb.morphia.Datastore;
 
+import io.magentys.mvc.authentication.controllers.GravatarUtil;
+import io.magentys.mvc.authentication.controllers.PasswordUtil;
 import io.magentys.mvc.authentication.model.User;
 import io.magentys.training.ncp.model.Message;
 import io.magentys.training.ncp.model.UserProfile;
-import io.magentys.training.ncp.util.GravatarUtil;
-import io.magentys.training.ncp.util.PasswordUtil;
 
 public class DataCreator {
 	
