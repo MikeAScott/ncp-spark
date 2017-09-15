@@ -3,9 +3,9 @@ package io.magentys.mvc.authentication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.magentys.mvc.authentication.controllers.PasswordUtil;
 import io.magentys.mvc.authentication.dao.UserDao;
 import io.magentys.mvc.authentication.model.User;
+import io.magentys.mvc.utils.PasswordUtil;
 import io.magentys.training.ncp.model.LoginResult;
 
 @Service

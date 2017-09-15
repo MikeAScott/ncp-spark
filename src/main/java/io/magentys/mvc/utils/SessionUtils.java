@@ -1,4 +1,4 @@
-package io.magentys.mvc.authentication.controllers;
+package io.magentys.mvc.utils;
 
 import io.magentys.mvc.authentication.model.User;
 import spark.Request;

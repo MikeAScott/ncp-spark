@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.controllers;
 
-import static io.magentys.mvc.authentication.controllers.SessionUtils.*;
+import static io.magentys.mvc.utils.SessionUtils.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;

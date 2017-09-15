@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.magentys.mvc.View;
-import io.magentys.mvc.ViewUtils;
 import io.magentys.mvc.authentication.model.User;
+import io.magentys.mvc.utils.ViewUtils;
 
 
 public class RegisterView implements View {

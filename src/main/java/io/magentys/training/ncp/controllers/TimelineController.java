@@ -1,6 +1,6 @@
 package io.magentys.training.ncp.controllers;
 
-import static io.magentys.mvc.authentication.controllers.SessionUtils.*;
+import static io.magentys.mvc.utils.SessionUtils.*;
 import static spark.Spark.halt;
 
 import java.util.List;

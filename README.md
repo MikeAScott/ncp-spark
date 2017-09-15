@@ -1,14 +1,13 @@
-# MiniTwit
+# No Change Parking
 
-Java version of Flask's MiniTwit example built with the Spark web microframework, Freemarker, Spring and HSQLDB (as an in-memory database).
-
-Thanks to [SamAsEnd](https://github.com/SamAsEnd) for given this project a [better look](https://github.com/eh3rrera/minitwit/pull/8). You can find the original theme referenced by the [tutorial](http://sparkjava.com/tutorials/twitter-clone) in [this branch](https://github.com/eh3rrera/minitwit/tree/original_theme).
+##Business Brief
+Drivers are annoyed by our parking meters that only take coins, despite increasing parking charges. The "No Change Parking" system will allow a driver to call us and pay for their parking by credit card. Since there will be no parking ticket for the driver to display on their car, Parking Inspectors must check that a vehicle in the car park is legally parked by querying the vehicle registration number in the system.
 
 ## Prerequisites
 
 - Java 8
-
 - Maven
+- Mongo Db Server
 
 ## How to run it
 
@@ -18,11 +17,11 @@ Thanks to [SamAsEnd](https://github.com/SamAsEnd) for given this project a [bett
 
 3. Open in your browser `http://localhost:4567/`
 
-4. Log in as user001 with password user001, or user002/user002, or user003/user003 until user010/user010, or sign up yourself. If your e-mail address has an associated Gravatar image, this will be used as your profile image.
+4. Log in as doris or bert with password, or sign up yourself. If your e-mail address has an associated Gravatar image, this will be used as your profile image.
 
 ## License
 MIT License
 
 See LICENSE for details.
 
-Flask's MiniTwit (c) 2015 by Armin Ronacher.
+Magentys' No Change Parking (c) 2017 by Mike Scott.

@@ -1,4 +1,4 @@
-package io.magentys.mvc;
+package io.magentys.mvc.utils;
 
 import static spark.Spark.halt;
 

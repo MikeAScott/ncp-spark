@@ -10,8 +10,8 @@ import spark.Request;
 import spark.Response;
 import spark.utils.StringUtils;
 
-import static io.magentys.mvc.ViewUtils.*;
-import static io.magentys.mvc.authentication.controllers.SessionUtils.*;
+import static io.magentys.mvc.utils.SessionUtils.*;
+import static io.magentys.mvc.utils.ViewUtils.*;
 import static spark.Spark.halt;
 
 import org.springframework.beans.factory.annotation.Autowired;

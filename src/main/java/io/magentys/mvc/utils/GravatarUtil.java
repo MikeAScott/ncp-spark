@@ -1,4 +1,4 @@
-package io.magentys.mvc.authentication.controllers;
+package io.magentys.mvc.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
