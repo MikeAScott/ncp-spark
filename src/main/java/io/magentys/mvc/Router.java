@@ -1,5 +1,5 @@
 package io.magentys.mvc;
 
-public interface Routes {
+public interface Router {
 	public void register();
 }

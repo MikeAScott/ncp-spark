@@ -7,14 +7,14 @@ import static spark.Spark.post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.magentys.mvc.Routes;
+import io.magentys.mvc.Router;
 import io.magentys.mvc.authentication.controllers.AuthenticationController;
 import io.magentys.training.ncp.controllers.FollowUserController;
 import io.magentys.training.ncp.controllers.MessageController;
 import io.magentys.training.ncp.controllers.TimelineController;
 
 @Component
-public class AppRoutes implements Routes {
+public class AppRoutes implements Router {
 
 	private AuthenticationController authenticationController;
 	private TimelineController timelineController;

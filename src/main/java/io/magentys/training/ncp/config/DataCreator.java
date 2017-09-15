@@ -23,11 +23,11 @@ public class DataCreator {
         datastore.ensureIndexes();
         int totalUsers = 10;
         for (int i = 1; i <= 10; i++) {
-            User user = createUser(datastore, "User" + i);	
+            User user = createUser("User" + i);	
             if (i == 4 || i == 5) {
             	addFollows(user,"User" + (i + 2));
             }
-    		createMessages(datastore, user, totalUsers + 1 - i);			
+    		createMessages(user, totalUsers + 1 - i);			
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class DataCreator {
 		datastore.save(profile);
 	}
 
-	private void createMessages(Datastore datastore, User user, int count) {
+	private void createMessages(User user, int count) {
 		for (int i = 1; i <= count; i++) {
 			Message msg = new Message();
 			msg.setUser(user);
@@ -48,7 +48,7 @@ public class DataCreator {
 		}
 	}
 
-	private User createUser(Datastore datastore, String username) {
+	private User createUser(String username) {
         String email = username + "@email.com";
 		String gravatar= GravatarUtil.gravatarURL(email,
         		GravatarUtil.GRAVATAR_DEFAULT_IMAGE_TYPE,

@@ -7,10 +7,10 @@ import static spark.Spark.post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.magentys.mvc.Routes;
+import io.magentys.mvc.Router;
 
 @Component
-public class AuthenticationRoutes implements Routes{
+public class AuthenticationRoutes implements Router{
 
 	private AuthenticationController authenticationController;
 
